@@ -1,0 +1,70 @@
+name: Build and deploy site
+
+# Builds the site from docs/ in the source repo and deploys it to GitHub Pages.
+
+on:
+  # Sent by the source repo when docs/ changes on main
+  repository_dispatch:
+    types: [docs-updated]
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: "Branch, tag or commit of the source repo to build from"
+        required: false
+        default: main
+  # In case a dispatch is missed
+  schedule:
+    - cron: "0 12 * * *"
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out site setup
+        uses: actions/checkout@v4
+
+      - name: Check out docs/ from the source repo
+        uses: actions/checkout@v4
+        with:
+          repository: pdf-accessibility-remediation/pdf-accessibility-remediation
+          ref: ${{ inputs.ref || 'main' }}
+          path: _src
+          sparse-checkout: docs
+          sparse-checkout-cone-mode: true
+
+      - name: Copy docs/ into the site
+        run: |
+          cp -R _src/docs/. .
+          rm -rf _src
+
+      - name: Set up Pages
+        uses: actions/configure-pages@v5
+
+      - name: Build with Jekyll
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./
+          destination: ./_site
+
+      - name: Upload site
+        uses: actions/upload-pages-artifact@v3
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

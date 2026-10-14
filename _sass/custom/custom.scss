@@ -1,0 +1,5 @@
+// Links in the text are underlined in $border-color, which is too pale to see.
+// Links and dark green body text are under 2:1 apart, so the underline has to show.
+a:not([class]) {
+  text-decoration-color: rgba($link-color, 0.5);
+}

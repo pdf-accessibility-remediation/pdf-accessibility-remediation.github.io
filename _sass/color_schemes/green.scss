@@ -1,0 +1,23 @@
+// Green scheme with dark green text. Used by `color_scheme: green` in _config.yml.
+// Loaded after Just the Docs' light scheme, so anything not set here stays as in light.
+
+$green-text: #1e3d2a;   // body text, headings, sidebar links
+$green-accent: #1a6e3d; // links, primary buttons
+$green-tint: #f2f8f3;   // sidebar, code, buttons
+$green-border: #dbeadf; // borders, hover background
+$green-white: #ffffff;  // page, tables, search box
+
+$body-background-color: $green-white;
+$body-heading-color: $green-text;
+$body-text-color: $green-text;
+$nav-child-link-color: $green-text;
+$search-result-preview-color: $green-text;
+$link-color: $green-accent;
+$btn-primary-color: $green-accent;
+$sidebar-color: $green-tint;
+$code-background-color: $green-tint;
+$base-button-color: $green-tint;
+$feedback-color: $green-border;
+$border-color: $green-border;
+$table-background-color: $green-white;
+$search-background-color: $green-white;
