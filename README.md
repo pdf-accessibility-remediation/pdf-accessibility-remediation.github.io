@@ -21,6 +21,23 @@ GitHub disables scheduled workflows after 60 days without commits to this reposi
 
 In **Settings → Pages**, the source must be set to **GitHub Actions**.
 
+## Dispatch token
+
+A workflow can only use its automatic token in its own repository, so the source repository needs a separate token to send the `docs-updated` event here. It is stored in the source repository as the Actions secret `DOCS_DISPATCH_TOKEN` and used by `.github/workflows/docs-dispatch.yml`.
+
+- **Type:** fine-grained personal access token, resource owner `pdf-accessibility-remediation`.
+- **Access:** only this repository (`pdf-accessibility-remediation.github.io`), with **Contents: Read and write**. It cannot reach the source repository or any other repository.
+- **Owner:** the token belongs to the GitHub account that created it. It stops working if that person leaves the organization, loses access to this repository, or deletes the token.
+
+If the token stops working, the **Docs dispatch** run in the source repository fails with an authentication error. The site then updates only through the daily run or a manual run until the token is replaced.
+
+To replace it:
+
+1. Any organization member with write access to this repository creates a new token: **Settings → Developer settings → Personal access tokens → Fine-grained tokens → Generate new token**, with the same resource owner, repository access and permission as above.
+2. In the source repository, go to **Settings → Secrets and variables → Actions**, edit `DOCS_DISPATCH_TOKEN` and paste the new token.
+3. Run **Actions → Docs dispatch → Run workflow** in the source repository and check that a new **Build and deploy site** run starts here.
+4. Update the owner above, and delete the old token if it still exists.
+
 ## Preview locally
 
 ### Prerequisites
