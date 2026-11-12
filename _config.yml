@@ -17,10 +17,6 @@ color_scheme: green  # _sass/color_schemes/green.scss
 search_enabled: true
 heading_anchors: true
 
-# Mermaid diagrams (```mermaid blocks), loaded from jsDelivr. Pinned to an exact version.
-mermaid:
-  version: "11.4.1"
-
 aux_links:
   "Source on GitHub":
     - "https://github.com/pdf-accessibility-remediation/pdf-accessibility-remediation"

@@ -8,7 +8,7 @@ This repository builds and deploys the documentation site for the [PDF accessibi
 
 This repository contains the configuration and workflow needed to publish the documentation site using GitHub Pages and Jekyll.
 
-- `_config.yml` configures the [Just the Docs](https://just-the-docs.com) theme, sidebar navigation, search and Mermaid diagrams (pinned to an exact Mermaid version).
+- `_config.yml` configures the [Just the Docs](https://just-the-docs.com) theme, sidebar navigation, and search.
 - `.github/workflows/pages.yml` builds and deploys the site to GitHub Pages using the documentation from the source repository.
 
 The deployment workflow runs:
